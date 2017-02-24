@@ -6,6 +6,22 @@ var inputPlayer1 = {
   down: false,
 }
 
+class Player {
+  constructor (score, powerup = null) {
+    this.score = score;
+    this.powerup = powerup;
+    this.Behaviour = null;
+  }
+
+  addBehaviour (powerup) {
+    // ...
+  }
+
+  move () {
+
+  }
+}
+
 const init = () => {
   const canvas = document.getElementById("canvas");
   let ctx = canvas.getContext("2d");
@@ -17,16 +33,8 @@ const init = () => {
   var dy = -2;
   var ballRadius = 10;
 
-  var player1 = {
-    score: 0,
-    powerup: null,
-  }
-
-  var player2 = {
-    score: 0,
-    powerup: null,
-  }
-
+  const player1 = new Player(0);
+  const player2 = new Player(0);
 
   const paddleLeft = {
     height: 50,
@@ -124,6 +132,9 @@ const init = () => {
     x += dx;
     y += dy;
   }
+
+  // game.update -> player.update
+  // game.draw -> player.draw
 
   setInterval(draw, 20);
 
