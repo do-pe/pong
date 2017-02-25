@@ -7,5 +7,4 @@ const powerups = {
   switchSides: "SWITCH_SIDES", // paddles change sides
   largePaddle: "LARGE_PADDLE",
   smallPaddle: "SMALL_PADDLE",
-  coop: "COOP", // both players switch to the same side and there are two balls? - maybe not a powerup, but rather a "mode"
 }

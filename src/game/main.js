@@ -5,6 +5,7 @@ var ctx = null; // global drawing context
 import Player from './classes/Player';
 import Ball from './classes/Ball';
 import ScoreDisplay from './classes/ScoreDisplay';
+import Sound from './classes/Sound';
 
 import { keyDownHandler, keyUpHandler } from './buttonhandler';
 
@@ -18,12 +19,19 @@ const init = () => {
 
   const ballRadius = 10;
 
+  const sounds = {
+    bgm: new Sound("sounds/freesound - accidental acid sounds.mp3 363696_1391542-lq.mp3"),
+    ballPaddle: new Sound("sounds/freesound - saxu.mp3 47178_528100-lq.mp3"),
+    ballWall: new Sound("sounds/freesound - fluttering 9753_24818-lq.mp3"),
+  }
+
   const ball = new Ball({
     x: canvas.width/2,
     y: canvas.height-30,
     dx: 2,
     dy: -2,
     radius: ballRadius,
+    sounds,
   });
 
   const player1 = new Player({
@@ -38,6 +46,8 @@ const init = () => {
 
   const scoreDisplay = new ScoreDisplay([player1, player2]);
 
+  sounds.bgm.play();
+
   const draw = () => {
     if(DEBUG && !debugDraw) {
       requestAnimationFrame(draw);
@@ -46,16 +56,16 @@ const init = () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        player1.update();
-        player2.update();
+    player1.update();
+    player2.update();
 
-        ball.move([player1, player2]);
+    ball.move([player1, player2]);
 
-        scoreDisplay.update();
+    scoreDisplay.update();
+
     ball.draw(ctx);
     player1.draw(ctx);
     player2.draw(ctx);
-
 
     requestAnimationFrame(draw);
   }

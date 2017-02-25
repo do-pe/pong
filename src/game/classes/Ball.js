@@ -1,12 +1,13 @@
 import { collideRects } from '../util/collision';
 
 export default class {
-  constructor ({x, y, dx = 2, dy = 2, radius = 5}) {
+  constructor ({x, y, dx = 2, dy = 2, radius = 5, sounds}) {
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
+    this.sounds = sounds;
   }
 
   hit (otherRect) {
@@ -33,14 +34,18 @@ export default class {
       dx = -dx;
       // TODO: when only left/right half of ball hits the paddle, change dy speed?
       // dy = dy * 1.2; // speed up y
+
+      this.sounds.ballPaddle.play(2);
     }
     // bounce off the walls
     else if(x + dx > canvas.width-this.radius || x + dx < this.radius) {
       if(x + dx < this.radius) { // hit left wall
         players[1].score++;
+        this.sounds.ballWall.play(2);
       }
       else if(x + dx > canvas.width-this.radius) {
         players[0].score++; // hit right wall
+        this.sounds.ballWall.play(2);
       }
 
       dx = -dx; // change movement direction
