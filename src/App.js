@@ -24,7 +24,7 @@ class App extends Component {
         </div>
         <canvas id="canvas" width="200" height="200" className={this.state.spin ? 'spin' : ''}></canvas>
         <br/>
-        <button onClick={() => this.setState({spin:true})}>Oh noes</button>
+        <button onClick={() => this.setState({spin:!this.state.spin})}>Oh noes</button>
       </div>
     );
   }
