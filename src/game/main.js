@@ -6,6 +6,7 @@ import Player from './classes/Player';
 import Ball from './classes/Ball';
 import ScoreDisplay from './classes/ScoreDisplay';
 import Sound from './classes/Sound';
+import Particle from './classes/Particle';
 
 import { keyDownHandler, keyUpHandler } from './buttonhandler';
 
@@ -48,6 +49,12 @@ const init = () => {
 
   sounds.bgm.play();
 
+  const particles = [];
+  var particleCount = 100;
+  for(var i = 0; i < particleCount; i++) {
+    particles.push(new Particle({x: 50, y: 50}));
+  }
+
   const draw = () => {
     if(DEBUG && !debugDraw) {
       requestAnimationFrame(draw);
@@ -66,6 +73,12 @@ const init = () => {
     ball.draw(ctx);
     player1.draw(ctx);
     player2.draw(ctx);
+
+    particles.map((p, i) => {
+      p.draw(ctx);
+      const shouldRemove = p.update();
+      if(shouldRemove) particles.splice(i, 1); // maybe better remove it after the map?
+    });
 
     requestAnimationFrame(draw);
   }
