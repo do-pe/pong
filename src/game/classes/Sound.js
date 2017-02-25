@@ -7,6 +7,10 @@ export default class {
   }
 
   play(start, stop) {
+    if(localStorage.getItem("SOUND_OFF")) {
+      return;
+    }
+
     if(start) {
       this.audio.currentTime = start;
     }
