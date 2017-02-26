@@ -6,7 +6,6 @@ import Player from './classes/Player';
 import Ball from './classes/Ball';
 import ScoreDisplay from './classes/ScoreDisplay';
 import Sound from './classes/Sound';
-import Particle from './classes/Particle';
 import ParticleSystem from './classes/ParticleSystem';
 
 import { keyDownHandler, keyUpHandler } from './buttonhandler';

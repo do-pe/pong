@@ -36,8 +36,14 @@ export default class {
       // TODO: when only left/right half of ball hits the paddle, change dy speed?
       // dy = dy * 1.2; // speed up y
 
+      // check if button press was timed with hit
+      // if(this.hit(players[0].paddle)) {
+        if(players[0].timedPress() || players[1].timedPress()) {
+          this.particlesystem.add({count:8, x: this.x, y: this.y});
+        }
+      // }
+
       this.sounds.ballPaddle.play(2);
-      this.particlesystem.add({count:8, x: this.x, y: this.y});
     }
     // bounce off the walls
     else if(x + dx > canvas.width-this.radius || x + dx < this.radius) {

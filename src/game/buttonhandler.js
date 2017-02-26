@@ -4,6 +4,7 @@ export const keyDownHandler = (e, {inputPlayer1, inputPlayer2}) => {
     // player 1: arrow keys
     case 37: {
         inputPlayer1.left = true;
+        inputPlayer1.leftTime = new Date();
         break;
     }
     case 38: {
@@ -12,6 +13,9 @@ export const keyDownHandler = (e, {inputPlayer1, inputPlayer2}) => {
     }
     case 39: {
         inputPlayer1.right = true;
+        // start a timer when pressed
+        inputPlayer1.rightTime = new Date();
+        // in game logic we can check if not more than x time has passed to have a human-managable timeframe
         break;
     }
     case 40: {
@@ -62,6 +66,7 @@ export const keyUpHandler = (e, {inputPlayer1, inputPlayer2}) => {
     // player 2: wasd
     case 65: {
         inputPlayer2.left = false;
+        inputPlayer2.leftTime = new Date();
         break;
     }
     case 87: {
@@ -70,6 +75,7 @@ export const keyUpHandler = (e, {inputPlayer1, inputPlayer2}) => {
     }
     case 68: {
         inputPlayer2.right = false;
+        inputPlayer2.rightTime = new Date();
         break;
     }
     case 83: {

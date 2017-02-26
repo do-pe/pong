@@ -18,6 +18,15 @@ export default class {
     // ...
   }
 
+  timedPress ({timeframe = 50, buttons = []} = {}) {
+    // check if the player pressed a button in a timeframe before an event
+    // for now, we just use right and left keys
+    // later we might have to differentiate more
+    const now = new Date();
+    const pressed = Math.max(this.input.rightTime || this.input.leftTime);
+    return (now - pressed < timeframe);
+  }
+
   update () {
     if(this.input.down && this.paddle.y < window.canvas.height- this.paddle.height) {
       this.paddle.y += 7;
