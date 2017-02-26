@@ -1,13 +1,14 @@
 import { collideRects } from '../util/collision';
 
 export default class {
-  constructor ({x, y, dx = 2, dy = 2, radius = 5, sounds}) {
+  constructor ({x, y, dx = 2, dy = 2, radius = 5, sounds, particlesystem}) {
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
     this.sounds = sounds;
+    this.particlesystem = particlesystem;
   }
 
   hit (otherRect) {
@@ -36,6 +37,7 @@ export default class {
       // dy = dy * 1.2; // speed up y
 
       this.sounds.ballPaddle.play(2);
+      this.particlesystem.add({count:8, x: this.x, y: this.y});
     }
     // bounce off the walls
     else if(x + dx > canvas.width-this.radius || x + dx < this.radius) {

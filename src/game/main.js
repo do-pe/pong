@@ -7,6 +7,7 @@ import Ball from './classes/Ball';
 import ScoreDisplay from './classes/ScoreDisplay';
 import Sound from './classes/Sound';
 import Particle from './classes/Particle';
+import ParticleSystem from './classes/ParticleSystem';
 
 import { keyDownHandler, keyUpHandler } from './buttonhandler';
 
@@ -26,6 +27,9 @@ const init = () => {
     ballWall: new Sound("sounds/freesound - fluttering 9753_24818-lq.mp3"),
   }
 
+  // one instance manages all particles that can be created by various parts of the game
+  const particlesystem = new ParticleSystem();
+
   const ball = new Ball({
     x: canvas.width/2,
     y: canvas.height-30,
@@ -33,6 +37,7 @@ const init = () => {
     dy: -2,
     radius: ballRadius,
     sounds,
+    particlesystem,
   });
 
   const player1 = new Player({
@@ -48,12 +53,6 @@ const init = () => {
   const scoreDisplay = new ScoreDisplay([player1, player2]);
 
   sounds.bgm.play();
-
-  const particles = [];
-  var particleCount = 100;
-  for(var i = 0; i < particleCount; i++) {
-    particles.push(new Particle({x: 50, y: 50}));
-  }
 
   const draw = () => {
     if(DEBUG && !debugDraw) {
@@ -74,11 +73,8 @@ const init = () => {
     player1.draw(ctx);
     player2.draw(ctx);
 
-    particles.map((p, i) => {
-      p.draw(ctx);
-      const shouldRemove = p.update();
-      if(shouldRemove) particles.splice(i, 1); // maybe better remove it after the map?
-    });
+    particlesystem.draw(ctx);
+    particlesystem.update();
 
     requestAnimationFrame(draw);
   }
